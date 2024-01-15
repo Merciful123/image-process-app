@@ -119,8 +119,8 @@ async function getMetadata(filePath) {
 
     const lens = metadataTags.Lens || "N/A";
     const lensAF = metadataTags.LensAF || "N/A";
-    const AFPointsInFocus = metadata.AFPointsInFocus || "N/A";
-    const AFPointsSelected = metadata.AFPointsSelected || "N/A";
+    const AFPointsInFocus = metadataTags.AFPointsInFocus || "N/A";
+    const AFPointsSelected = metadataTags.AFPointsSelected || "N/A";
 
     
     const captureTime = metadataTags.CreateDate || metadataTags.DateTimeOriginal || "N/A";
