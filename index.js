@@ -17,7 +17,7 @@ app.use(express.json());
 
 app.use(
   cors({
-    origin: "https://imageprocessingapp.netlify.app/",
+    origin: "https://imageprocessingapp.netlify.app",
   })
 );
 
