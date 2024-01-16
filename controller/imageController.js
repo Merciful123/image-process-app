@@ -10,7 +10,7 @@ const getMetadata = async (filePath) => {
 
     const metadataTags = await exiftool.read(filePath);
 
-    // console.log(metadataTags)
+    console.log("metadataTags:",metadataTags)
 
     // Extract specific tags
 
