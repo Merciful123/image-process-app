@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 import dotenv from "dotenv"
 import { uploadImage } from "./routes/imageUpload.js";
 import bodyparser from "body-parser"
+import getImageRoute from "./routes/getImage.js";
 dotenv.config();
 
 
@@ -35,6 +36,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api", uploadImage)
+app.use("/api", getImageRoute);
 
 // Start server
 app.listen(PORT, () => {

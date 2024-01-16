@@ -1,54 +1,60 @@
-// import sharp from "sharp";
-// import exifParser from "exif-parser";
-// import { exec } from "child_process";
-// import fs from "fs";
-// import { promisify } from "util";
-// import CloudmersiveImageApiClient from "cloudmersive-image-api-client";
+import { ExifTool } from "exiftool-vendored";
 
-// const execPromise = promisify(exec);
+const exiftool = new ExifTool({ taskTimeoutMillis: 5000 });
 
-// export async function processImage(buffer) {
-//   try {
-//     //
 
-//     // // var CloudmersiveImageApiClient = require("cloudmersive-image-api-client");
-//     // var defaultClient = CloudmersiveImageApiClient.ApiClient.instance;
 
-//     // // Configure API key authorization: Apikey
-//     // // var Apikey = defaultClient.authentications["Apikey"];
-//     // var Apikey = defaultClient.authentications["Apikey"];
-    
-//     // // Apikey.apiKey = "YOUR API KEY";
-//     // Apikey.apiKey = "2a719f14-cf82-4564-9577-c747c3dea632";
+const getMetadata = async (filePath) => {
+  try {
+    // Read metadata tags using exiftool-vendored
 
-//     // var apiInstance = new CloudmersiveImageApiClient.ConvertApi();
+    const metadataTags = await exiftool.read(filePath);
 
-//     // var imageFile = Buffer.from(fs.readFileSync(buffer).buffer); // File | Image file to perform the operation on.  Common file formats such as PNG, JPEG are supported.
+    // console.log(metadataTags)
 
-//     // var callback = function (error, data, response) {
-//     //   if (error) {
-//     //     console.error("error",error);
-//     //   } else {
-//     //     console.log("API called successfully. Returned data: " + data);
-//     //   }
-//     // };
-//     // apiInstance.convertToPng(imageFile, callback);
+    // Extract specific tags
 
-//     //
-//     const processedImageBuffer = await sharp(buffer).toFormat("jpeg").jpeg({
-//       force: true,
-//     });
+    const lens = metadataTags.Lens || "N/A";
+    const lensAF = metadataTags.LensAF || "N/A";
+    const AFPointsInFocus = metadataTags.AFPointsInFocus || "N/A";
+    const AFPointsSelected = metadataTags.AFPointsSelected || "N/A";
 
-//     return processedImageBuffer;
-//   } catch (error) {
-//     // Handle the case where the image format is not supported
-//     console.error("Unsupported image format:", error.message);
-//     throw new Error("Unsupported image format");
-//   }
-// }
+    const captureTime =
+      metadataTags.CreateDate || metadataTags.DateTimeOriginal || "N/A";
+    const iso = metadataTags.ISO || "N/A";
+    const speed = metadataTags.ShutterSpeed || "N/A";
+    const aperture = metadataTags.ApertureValue || "N/A";
+    const fileName = metadataTags.FileName || "N/A";
+    const imageSize = metadataTags.ImageSize || "N/A";
+    const whiteBalance = metadataTags.WhiteBalance || "N/A";
+    const rating = metadataTags.Rating || "N/A";
+    const colour = metadataTags.ColorSpace || "N/A";
+    const camera = metadataTags.Model || "N/A";
 
-// // Function to extract Exif metadata
-// export const extractMetadata = async (buffer) => {
-//   const parser = exifParser.create(buffer);
-//   return parser.parse();
-// };
+    // Create an object with the extracted metadata
+
+    const extractedMetadata = {
+      lens,
+      lensAF,
+      AFPointsInFocus,
+      AFPointsSelected,
+      captureTime,
+      iso,
+      speed,
+      aperture,
+      fileName,
+      imageSize,
+      whiteBalance,
+      rating,
+      colour,
+      camera,
+    };
+
+    return extractedMetadata;
+  } catch (error) {
+    console.error("Error getting metadata:", error);
+    throw new Error("Error getting metadata");
+  }
+};
+
+export default getMetadata;
