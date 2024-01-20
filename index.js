@@ -18,6 +18,7 @@ app.use(express.json());
 app.use(
   cors({
     origin: ["https://imageprocessingapp.netlify.app", "http://127.0.0.1:5173"],
+    methods: "GET,POST",
   })
 );
 
