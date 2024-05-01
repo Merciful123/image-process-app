@@ -31,6 +31,7 @@ app.use(
       "https://imageprocessingapp.netlify.app",
       "http://127.0.0.1:5173",
       "http://localhost:5174",
+      "https://image-processing-app-b0r3.onrender.com",
     ],
     methods: "GET,POST",
   })
