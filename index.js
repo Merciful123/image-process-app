@@ -25,17 +25,17 @@ console.log(process.env.MONGO_DB);
 // Middleware
 app.use(express.json());
 
-app.use(
-  cors({
-    origin: [
-      "https://imageprocessingapp.netlify.app",
-      "http://127.0.0.1:5173",
-      "http://localhost:5174",
-      "https://image-processing-app-b0r3.onrender.com",
-    ],
-    methods: "GET,POST",
-  })
-);
+// app.use(
+//   cors({
+//     origin: [
+//       "https://imageprocessingapp.netlify.app",
+//       "http://127.0.0.1:5173",
+//       "http://localhost:5174",
+//       "https://image-processing-app-b0r3.onrender.com",
+//     ],
+//     methods: "GET,POST",
+//   })
+// );
 
 app.use(express.urlencoded({ extended: true }));
 app.use(bodyparser.urlencoded({ extended: true }));
